@@ -1,0 +1,249 @@
+/* Reset & basic */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Momo+Trust+Sans:wght@200..800&display=swap");
+
+.LoginPage {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Left side gradient & bubbles */
+.left-side {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+}
+
+.mainText {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+}
+
+.main .welcome,
+.main .name,
+.supplementary {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.animate {
+  animation: fadeUp 1.5s ease-out forwards;
+}
+
+.welcome.animate {
+  animation-delay: 0.5s;
+}
+.name.animate {
+  animation-delay: 1.8s;
+}
+.supplementary.animate {
+  animation-delay: 3s;
+}
+
+.main .mainText,
+.main .name,
+.main .welcome {
+  color: white;
+  font-family: "Momo Trust Sans", sans-serif;
+}
+
+.main .mainText {
+  font-size: 60px;
+  font-weight: 700;
+}
+
+.name {
+  font-size: 80px;
+  font-weight: 700;
+}
+
+.welcome {
+  font-size: 35px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.supplementary {
+  max-width: 600px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bubbles */
+.bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -10%;
+  background: hsla(183, 94%, 76%, 0.3);
+  border-radius: 50%;
+  animation: float-up linear infinite;
+}
+
+.bubble:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-duration: 10s; animation-delay: 1s; }
+.bubble:nth-child(2) { left: 30%; width: 60px; height: 60px; animation-duration: 12s; animation-delay: 2s; }
+.bubble:nth-child(3) { left: 50%; width: 25px; height: 25px; animation-duration: 8s; animation-delay: 0s; }
+.bubble:nth-child(4) { left: 70%; width: 80px; height: 80px; animation-duration: 14s; animation-delay: 3s; }
+.bubble:nth-child(5) { left: 90%; width: 50px; height: 50px; animation-duration: 11s; animation-delay: 1s; }
+
+@keyframes float-up {
+  from {
+    transform: translateY(0) translateX(0);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(-110vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+/* Right side */
+.right-side {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-components {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+}
+
+h3 {
+  text-align: center;
+  color: #a79bda;
+  font-size: 45px;
+  font-family: "Momo Trust Sans", sans-serif;
+  margin-bottom: 35px;
+}
+
+/* Both input-boxes styling */
+.input-box1,
+.input-box2 {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px; /* ensures gap between the two boxes */
+}
+
+/* Input field styling */
+.input-box1 input,
+.input-box2 input {
+  width: 100%;
+  padding: 15px 20px 15px 50px; /* space for icon */
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  outline: none;
+  background: #f0f0ff;
+  transition: background 0.3s ease;
+  font-family: "Momo Trust Sans", sans-serif;
+}
+
+.input-box1 input:focus,
+.input-box2 input:focus {
+  background: #9d9de3;
+}
+
+/* Icons inside the input boxes */
+.input-box1 .input-icon,
+.input-box2 .input-icon {
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+
+/* Links */
+.linksToPage {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.linksToPage a {
+  text-decoration: none;
+  color: rgb(171, 148, 148);
+  font-family: "Momo Trust Sans";
+  transition: color 0.2s ease;
+}
+
+.linksToPage a:hover {
+  color: #af40ff;
+}
+
+/* Login button */
+.LoginBtn {
+  margin-top: 30px;
+  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-family: "Phantomsans", sans-serif;
+  font-size: 20px;
+  padding: 15px 22px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoginBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: rgba(91, 66, 243, 0.4) 0 20px 40px -10px;
+}
+
+.LoginBtn:active {
+  transform: translateY(1px);
+}
+
+@media (min-width: 768px) {
+  .LoginBtn {
+    font-size: 22px;
+    min-width: 180px;
+  }
+}

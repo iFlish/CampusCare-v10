@@ -43,3 +43,29 @@ export const getAllUsers = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch users" });
   }
 };
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    
+    if (!user) {
+      return res.json({ success: false, message: "Email not found" });
+    }
+    
+    // Update password (plain text in your case)
+    // If you want to use bcrypt hashing, uncomment the lines below
+    // const hashedPassword = await bcrypt.hash(newPassword, 10);
+    // user.password = hashedPassword;
+    
+    user.password = newPassword;
+    await user.save();
+    
+    res.json({ success: true, message: "Password reset successful" });
+  } catch (err) {
+    console.error("Reset password error:", err);
+    res.status(500).json({ success: false, message: "Error resetting password", error: err.message });
+  }
+};

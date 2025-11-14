@@ -40,54 +40,90 @@ export const getAdminStats = async (req, res) => {
     const avgResponseTime = avgResponse[0]?.avgResponseTime || 0;
     console.log(`⚡ Average response time: ${avgResponseTime.toFixed(0)}ms`);
 
-    // 4️⃣ High-risk users list (TODAY ONLY) - ✅ Now using userEmail from ChatLog
-    const highRiskChats = await ChatLog.find({ 
-      riskLevel: { $in: ["high", "High"] },
-      createdAt: { $gte: today, $lt: tomorrow } // ✅ Filter for today only
-    })
-      .sort({ createdAt: -1 })
-      .select("userEmail userId createdAt userMessage")
-      .limit(20);
-
-    console.log(`⚠️  High-risk chats found today: ${highRiskChats.length}`);
-
-    // ✅ Group by email to avoid duplicates and get the latest message for each user
-    const uniqueHighRiskUsers = {};
-    
-    for (const chat of highRiskChats) {
-      const email = chat.userEmail || `Anonymous (${chat.userId})`;
-      
-      if (!uniqueHighRiskUsers[email]) {
-        // Try to find username from User collection
-        let username = null;
-        if (chat.userEmail) {
-          const userDoc = await User.findOne({ email: chat.userEmail }).select("username");
-          username = userDoc?.username;
+    // 4️⃣ High-risk users list - TODAY ONLY with aggregation pipeline
+    const highRiskChatsToday = await ChatLog.aggregate([
+      {
+        $match: {
+          riskLevel: { $in: ["high", "High"] },
+          createdAt: { $gte: today, $lt: tomorrow }
         }
-        
-        uniqueHighRiskUsers[email] = {
-          email: chat.userEmail || email,
-          username: username || "N/A",
-          userId: chat.userId,
-          lastRiskMessage: chat.userMessage?.substring(0, 100) || "No message",
-          timestamp: chat.createdAt,
-          riskLevel: chat.riskLevel
-        };
+      },
+      {
+        $sort: { createdAt: -1 }
+      },
+      {
+        $group: {
+          _id: "$userId",
+          lastRiskMessage: { $first: "$userMessage" },
+          timestamp: { $first: "$createdAt" },
+          userEmail: { $first: "$userEmail" }
+        }
+      },
+      {
+        $limit: 10
       }
+    ]);
+
+    console.log(`⚠️  High-risk chats found TODAY: ${highRiskChatsToday.length}`);
+
+    // Extract user IDs and map to users
+    const userIds = highRiskChatsToday.map(chat => chat._id).filter(id => 
+      /^[0-9a-fA-F]{24}$/.test(id) // Valid MongoDB ObjectID
+    );
+
+    let highRiskUserList = [];
+
+    if (userIds.length > 0) {
+      // Get user details
+      const users = await User.find({
+        _id: { $in: userIds }
+      }).select("email username _id");
+
+      // Create a map for quick lookup
+      const userMap = {};
+      users.forEach(user => {
+        userMap[user._id.toString()] = {
+          email: user.email,
+          username: user.username
+        };
+      });
+
+      // Build the final list with user details
+      highRiskUserList = highRiskChatsToday.map(chat => {
+        const userId = chat._id.toString();
+        const userInfo = userMap[userId];
+
+        return {
+          userId: userId,
+          email: chat.userEmail || userInfo?.email || `Unknown User (${userId})`,
+          username: userInfo?.username || "Unknown",
+          lastRiskMessage: chat.lastRiskMessage,
+          timestamp: chat.timestamp,
+          riskLevel: "high"
+        };
+      });
+    } else {
+      // Handle non-ObjectID userIds
+      highRiskUserList = highRiskChatsToday.map(chat => ({
+        userId: chat._id,
+        email: chat.userEmail || `Anonymous User (${chat._id})`,
+        username: "Unknown",
+        lastRiskMessage: chat.lastRiskMessage,
+        timestamp: chat.timestamp,
+        riskLevel: "high"
+      }));
     }
 
-    const finalHighRiskList = Object.values(uniqueHighRiskUsers).slice(0, 10);
+    console.log(`🚨 High-risk users to display: ${highRiskUserList.length}`);
 
-    console.log(`🚨 Unique high-risk users to display: ${finalHighRiskList.length}`);
-
-    // 5️⃣ Additional useful stats
+    // 5️⃣ Additional stats
     const chatsToday = await ChatLog.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow }
     });
 
     const totalUsers = await User.countDocuments();
 
-    // Risk level breakdown
+    // Risk level breakdown - ALL TIME
     const riskBreakdown = await ChatLog.aggregate([
       {
         $group: {
@@ -104,13 +140,12 @@ export const getAdminStats = async (req, res) => {
       userCount,
       totalChats,
       avgResponseTime: Math.round(avgResponseTime),
-      highRiskUsers: finalHighRiskList,
-      // Additional stats
+      highRiskUsers: highRiskUserList,
       chatsToday,
       totalUsers,
       riskBreakdown: {
-        low: riskBreakdown.find(r => r._id === "low" || r._id === "Low")?.count || 0,
-        moderate: riskBreakdown.find(r => r._id === "moderate" || r._id === "Moderate")?.count || 0,
+        low: riskBreakdown.find(r => r._id === "low")?.count || 0,
+        moderate: riskBreakdown.find(r => r._id === "moderate")?.count || 0,
         high: riskBreakdown.find(r => r._id === "high" || r._id === "High")?.count || 0
       }
     });

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const chatSchema = new mongoose.Schema({
   userId: { type: String, required: true },
-  userEmail: { type: String, required: true }, // ✅ Added email field
+  userEmail: { type: String }, // Added userEmail field
   userMessage: { type: String, required: true },
   botResponse: { type: String, required: true },
   riskLevel: { type: String, enum: ["low", "moderate", "high", "Low", "Moderate", "High"], default: "low" },

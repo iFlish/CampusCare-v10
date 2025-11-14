@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./AdminPage.css";
+import { useNavigate, Link } from "react-router-dom";
+import logo from '../../assets/logo.png';
 
 function AdminPage() {
   const [stats, setStats] = useState({
@@ -56,32 +58,19 @@ function AdminPage() {
   return (
     <>
       {/* ===== NAVBAR ===== */}
-      <nav>
+  <nav>
         <ul>
           <li className="logo">
-            <img
-              src="https://i.postimg.cc/WzkCM20g/logo1.png"
-              alt="CampusCare Logo"
-            />
+            <img src={logo} alt="CampusCare Logo" />
           </li>
-          <li>
-            <a href="/">
-              <i className="fa fa-home"></i> Home
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.utp.edu.my/Pages/PCS.aspx"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <i className="fa fa-university"></i> Visit UTP PCS
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="fa fa-heartbeat"></i> Mental Health
-            </a>
+
+    
+
+
+          <li className="logout">
+            <Link to="/">
+              <i className="fa fa-sign-out"></i> Logout
+            </Link>
           </li>
         </ul>
       </nav>

@@ -4,6 +4,7 @@ import "./Register.css";
 import personIcon from "../../assets/person.svg";
 import keyIcon from "../../assets/key.svg";
 import emailIcon from "../../assets/email.svg";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
   // state variables for form fields
@@ -108,8 +109,8 @@ function Register() {
             </div>
 
             <div className="linksToPage">
-              <a href="#">Forget Password</a>
-              <a href="/">Already have an account? Login</a>
+               <Link className="f" to="/Forget">Forget Password</Link>
+               <Link  className = "r"to="/Login">Already Registered? Login</Link>
             </div>
 
             <button className="LoginBtn" type="submit">

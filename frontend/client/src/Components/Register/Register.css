@@ -205,6 +205,8 @@
 }
 
 .input-box input {
+    margin-top: 10px;
+    margin-bottom: 10px;
     font-family: "Momo Trust Sans", sans-serif;
     width: 85%;
     padding: 15px 20px 15px 50px;
@@ -245,6 +247,10 @@ h3 {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.f{
+  margin-right: 50px;
 }
 
 a {

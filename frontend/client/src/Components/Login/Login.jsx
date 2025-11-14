@@ -65,7 +65,7 @@ function Login() {
         <div className="login-components">
           <h3>USER LOGIN</h3>
           <form onSubmit={handleLogin}>
-            <div className="input-box1">
+            <div className="input-box">
               <img src={personIcon} alt="User Icon" className="input-icon" />
               <input
                 type="text"
@@ -76,7 +76,7 @@ function Login() {
               />
             </div>
 
-            <div className="input-box2">
+            <div className="input-box">
               <img src={keyIcon} alt="Key Icon" className="input-icon" />
               <input
                 type="password"
@@ -88,8 +88,8 @@ function Login() {
             </div>
 
             <div className="linksToPage">
-              <a href="#">Forget Password</a>
-              <Link to="/register">Register an account</Link>
+              <Link className="f" to="/Forget">Forget Password</Link>
+              <Link  className = "r"to="/register">Register an account</Link>
             </div>
 
             <button className="LoginBtn" type="submit">

@@ -19,12 +19,12 @@ export const chatWithBot = async (req, res) => {
 
     const context = await getRelevantContext(message);
     const responseText = await queryGemini(message, context);
-    const riskLevel = evaluateRisk(message); // ✅ Evaluate risk on USER MESSAGE, not bot response
+    const riskLevel = evaluateRisk(message); 
     
     const endTime = Date.now();
     const responseTime = endTime - startTime;
 
-    // ✅ Save chat with user email and response time
+
     await ChatLog.create({
       userId,
       userEmail,

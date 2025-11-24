@@ -35,7 +35,7 @@ function PCS() {
 
   return (
     <>
-      {/* Navigation Bar */}
+   
 <nav>
   <ul>
     <li className="logo">
@@ -74,21 +74,21 @@ function PCS() {
 
 
 
-      {/* Background Bubbles */}
+
       <div className="bubbles">
         {[...Array(5)].map((_, i) => (
           <div key={i} className="bubble"></div>
         ))}
       </div>
 
-      {/* Main Content */}
+  
       <div className="mental-health-container">
         <div className="mh-header">
           <h1>Psychological & Counselling Services</h1>
           <p>Your wellbeing is our priority</p>
         </div>
 
-        {/* Tab Content */}
+
         <div className="tab-content">
           <div className="overview-section">
             <div className="info-card full-width">

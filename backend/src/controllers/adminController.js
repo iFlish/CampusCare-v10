@@ -5,7 +5,7 @@ export const getAdminStats = async (req, res) => {
   try {
     console.log("\n📊 Fetching admin statistics...");
 
-    // Get today's date range (midnight to now)
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const tomorrow = new Date(today);
@@ -13,17 +13,17 @@ export const getAdminStats = async (req, res) => {
 
     console.log(`📅 Date range: ${today.toISOString()} to ${tomorrow.toISOString()}`);
 
-    // 1️⃣ Number of users registered today
+  
     const userCount = await User.countDocuments({ 
       createdAt: { $gte: today, $lt: tomorrow } 
     });
     console.log(`👥 Users registered today: ${userCount}`);
 
-    // 2️⃣ Total number of chats in database
+
     const totalChats = await ChatLog.countDocuments();
     console.log(`💬 Total chats in DB: ${totalChats}`);
 
-    // 3️⃣ Average chatbot response time
+   
     const avgResponse = await ChatLog.aggregate([
       { 
         $match: { 
@@ -40,7 +40,7 @@ export const getAdminStats = async (req, res) => {
     const avgResponseTime = avgResponse[0]?.avgResponseTime || 0;
     console.log(`⚡ Average response time: ${avgResponseTime.toFixed(0)}ms`);
 
-    // 4️⃣ High-risk users list - TODAY ONLY with aggregation pipeline
+
     const highRiskChatsToday = await ChatLog.aggregate([
       {
         $match: {
@@ -66,20 +66,20 @@ export const getAdminStats = async (req, res) => {
 
     console.log(`⚠️  High-risk chats found TODAY: ${highRiskChatsToday.length}`);
 
-    // Extract user IDs and map to users
+
     const userIds = highRiskChatsToday.map(chat => chat._id).filter(id => 
-      /^[0-9a-fA-F]{24}$/.test(id) // Valid MongoDB ObjectID
+      /^[0-9a-fA-F]{24}$/.test(id) 
     );
 
     let highRiskUserList = [];
 
     if (userIds.length > 0) {
-      // Get user details
+  
       const users = await User.find({
         _id: { $in: userIds }
       }).select("email username _id");
 
-      // Create a map for quick lookup
+     
       const userMap = {};
       users.forEach(user => {
         userMap[user._id.toString()] = {
@@ -88,7 +88,7 @@ export const getAdminStats = async (req, res) => {
         };
       });
 
-      // Build the final list with user details
+   
       highRiskUserList = highRiskChatsToday.map(chat => {
         const userId = chat._id.toString();
         const userInfo = userMap[userId];
@@ -103,7 +103,7 @@ export const getAdminStats = async (req, res) => {
         };
       });
     } else {
-      // Handle non-ObjectID userIds
+     
       highRiskUserList = highRiskChatsToday.map(chat => ({
         userId: chat._id,
         email: chat.userEmail || `Anonymous User (${chat._id})`,
@@ -116,14 +116,13 @@ export const getAdminStats = async (req, res) => {
 
     console.log(`🚨 High-risk users to display: ${highRiskUserList.length}`);
 
-    // 5️⃣ Additional stats
+ 
     const chatsToday = await ChatLog.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow }
     });
 
     const totalUsers = await User.countDocuments();
 
-    // Risk level breakdown - ALL TIME
     const riskBreakdown = await ChatLog.aggregate([
       {
         $group: {

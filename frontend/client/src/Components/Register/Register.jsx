@@ -7,7 +7,7 @@ import emailIcon from "../../assets/email.svg";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
-  // state variables for form fields
+ 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +16,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // check if all fields are filled
+   
     if (!username || !email || !password || !role) {
       alert("⚠️ Please fill in all fields before registering.");
       return;
@@ -32,7 +32,7 @@ function Register() {
 
       if (response.data.success) {
         alert("✅ Registration successful! You can now log in.");
-        // optional: redirect to login page after registration
+     
         window.location.href = "/";
       } else {
         alert(`⚠️ ${response.data.message || "Registration failed."}`);
@@ -45,7 +45,7 @@ function Register() {
 
   return (
     <div className="RegisterPage">
-      {/* Right side - registration form */}
+
       <div className="right-side">
         <div className="login-components">
           <form onSubmit={handleRegister}>
@@ -120,7 +120,7 @@ function Register() {
         </div>
       </div>
 
-      {/* Left side - welcome bubbles and text */}
+     
       <div className="left-side">
         <div className="bubbles">
           {[...Array(5)].map((_, i) => (

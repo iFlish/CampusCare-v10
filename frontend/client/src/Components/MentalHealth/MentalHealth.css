@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
-/* ===== RESET ===== */
+
 body,
 html {
   margin: 0;
@@ -11,7 +11,7 @@ html {
   overflow: hidden;
 }
 
-/* ===== SIDEBAR ===== */
+
 nav ul {
   margin: 0;
   padding: 0;
@@ -60,7 +60,6 @@ nav ul li a.active {
   width: 100%;
 }
 
-/* ===== BUBBLE BACKGROUND ===== */
 .bubbles {
   position: absolute;
   top: 0;
@@ -129,7 +128,7 @@ nav ul li a.active {
   }
 }
 
-/* ===== MAIN CONTAINER ===== */
+
 .mental-health-container {
   position: relative;
   margin-left: 14%;
@@ -141,7 +140,6 @@ nav ul li a.active {
   overflow: hidden;
 }
 
-/* ===== HEADER ===== */
 .mh-header {
   padding: 30px 40px 20px;
   text-align: center;
@@ -162,7 +160,6 @@ nav ul li a.active {
   margin: 0;
 }
 
-/* ===== TAB NAVIGATION ===== */
 .tab-navigation {
   display: flex;
   justify-content: center;
@@ -203,7 +200,7 @@ nav ul li a.active {
   font-size: 18px;
 }
 
-/* ===== TAB CONTENT ===== */
+
 .tab-content {
   flex: 1;
   overflow-y: auto;
@@ -229,7 +226,6 @@ nav ul li a.active {
   background: rgba(109, 24, 124, 0.5);
 }
 
-/* ===== OVERVIEW SECTION ===== */
 .overview-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -312,7 +308,6 @@ nav ul li a.active {
   margin: 0;
 }
 
-/* ===== FAQ SECTION ===== */
 .faq-section {
   max-width: 900px;
   margin: 0 auto;
@@ -402,7 +397,6 @@ nav ul li a.active {
   margin: 0;
 }
 
-/* ===== TOPICS SECTION ===== */
 .topics-section {
   display: flex;
   flex-direction: column;
@@ -481,7 +475,7 @@ nav ul li a.active {
   font-size: 18px;
 }
 
-/* ===== EMERGENCY SECTION ===== */
+
 .emergency-section {
   display: flex;
   flex-direction: column;
@@ -590,7 +584,6 @@ nav ul li a.active {
   margin-right: 8px;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .mental-health-container {
     margin-left: 80px;

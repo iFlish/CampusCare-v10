@@ -9,10 +9,10 @@ function Main() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState(null); // ✅ Store user info
+  const [user, setUser] = useState(null); 
   const chatEndRef = useRef(null);
 
-  // ✅ Get user info from localStorage on component mount
+  
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -20,7 +20,7 @@ function Main() {
     }
   }, []);
 
-  // Auto-scroll to bottom on new messages
+ 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -29,7 +29,7 @@ function Main() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
-    // ✅ Check if user is logged in
+
     if (!user || !user.email) {
       alert("Please log in to use the chatbot");
       return;
@@ -43,8 +43,8 @@ function Main() {
 
     try {
       const res = await axios.post("http://localhost:5000/api/chat", {
-        userId: user._id || user.username, // Send user ID
-        userEmail: user.email, // ✅ Send user email
+        userId: user._id || user.username, 
+        userEmail: user.email, 
         message: currentInput,
       });
 
@@ -57,7 +57,7 @@ function Main() {
 
       setMessages((prev) => [...prev, botMessage]);
 
-      // Optional: Show alert if high risk detected
+  
       if (res.data.flagged) {
         console.warn("High risk conversation detected");
       }
@@ -77,7 +77,7 @@ function Main() {
 
   return (
     <>
-      {/* Navbar */}
+
       <nav>
         <ul>
           <li className="logo">
@@ -111,14 +111,14 @@ function Main() {
         </ul>
       </nav>
 
-      {/* Background animation */}
+
       <div className="bubbles">
         {[...Array(5)].map((_, i) => (
           <div key={i} className="bubble"></div>
         ))}
       </div>
 
-      {/* Chat Section */}
+  
       <div className="chat-section">
         <div className="chat-box">
           {messages.length === 0 ? (

@@ -100,7 +100,7 @@ function MentalHealth() {
 
   return (
     <>
-      {/* Navigation Bar */}
+      
     <nav>
   <ul>
     <li className="logo">
@@ -137,21 +137,21 @@ function MentalHealth() {
   </ul>
 </nav>
 
-      {/* Background Bubbles */}
+ 
       <div className="bubbles">
         {[...Array(5)].map((_, i) => (
           <div key={i} className="bubble"></div>
         ))}
       </div>
 
-      {/* Main Content */}
+   
       <div className="mental-health-container">
         <div className="mh-header">
           <h1>Mental Health Resources</h1>
           <p>Understanding and managing your mental wellbeing</p>
         </div>
 
-        {/* Tab Navigation */}
+    
         <div className="tab-navigation">
           <button
             className={activeTab === "overview" ? "tab-btn active" : "tab-btn"}
@@ -179,7 +179,7 @@ function MentalHealth() {
           </button>
         </div>
 
-        {/* Tab Content */}
+      
         <div className="tab-content">
           {activeTab === "overview" && (
             <div className="overview-section">

@@ -10,7 +10,7 @@ html {
   overflow: hidden;
 }
 
-/* SIDEBAR ------------------ */
+
 nav ul {
   margin: 0;
   padding: 0;
@@ -67,7 +67,7 @@ nav ul li a.active {
   width: 100%;
 }
 
-/* BUBBLES ------------------ */
+
 .bubbles {
   position: absolute;
   top: 0;
@@ -132,7 +132,7 @@ nav ul li a.active {
   }
 }
 
-/* MAIN CONTENT ------------------ */
+
 .mental-health-container {
   position: relative;
   margin-left: 14%;
@@ -162,7 +162,6 @@ nav ul li a.active {
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* TAB CONTENT ------------------ */
 .tab-content {
   flex: 1;
   overflow-y: auto;
@@ -184,8 +183,6 @@ nav ul li a.active {
   background: rgba(109, 24, 124, 0.5);
 }
 
-/* CARDS UPDATED ------------------ */
-/* Centered horizontally */
 .overview-section {
   display: flex;
   justify-content: center;
@@ -203,7 +200,7 @@ nav ul li a.active {
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  width: 350px; /* Keep cards aligned nicely */
+  width: 350px; 
 }
 
 .info-card:hover {
@@ -234,7 +231,7 @@ nav ul li a.active {
   text-align: center;
 }
 
-/* WORKING HOURS COLORS */
+
 .wh-days {
   font-size: 18px;
   font-weight: 600;
@@ -252,7 +249,7 @@ nav ul li a.active {
   color: #666;
 }
 
-/* BUTTONS ------------------ */
+
 .visit-btn {
   display: inline-block;
   padding: 12px 24px;
@@ -276,7 +273,7 @@ nav ul li a.active {
   gap: 12px;
 }
 
-/* CONFIDENTIALITY ------------------ */
+
 .conf-text {
   font-size: 15px;
   line-height: 1.7;

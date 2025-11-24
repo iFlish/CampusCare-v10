@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function queryGemini(prompt, context, riskLevel = "low") {
-  // 🟥 1. If high risk → skip Gemini completely
+
   if (riskLevel === "high") {
     return `
 🚨 <strong>URGENT: You are not alone, and help is available.</strong>
@@ -16,7 +16,6 @@ Please don't face this alone — talking to someone can truly help. 💙
     `;
   }
 
-  // 🟦 2. Otherwise, use Gemini API
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY is not set in environment variables");
 
@@ -58,16 +57,15 @@ CRITICAL INSTRUCTIONS:
       response.data.candidates?.[0]?.content?.parts?.[0]?.text ||
       "I'm here to help. Could you tell me more about what’s been happening?";
 
-    // Convert markdown bold to HTML
+    
     responseText = responseText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
-    // Convert URLs to clickable links
     responseText = responseText.replace(
       /(https?:\/\/[^\s]+)/g,
       '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
     );
 
-    // Ensure the UTP PCS link is clickable
+  
     responseText = responseText.replace(
       /https:\/\/shorturl\.at\/OUaEb/g,
       '<a href="https://shorturl.at/OUaEb" target="_blank" rel="noopener noreferrer">Book a slot with UTP PCS</a>'

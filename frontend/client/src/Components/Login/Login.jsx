@@ -8,11 +8,11 @@ import keyIcon from "../../assets/key.svg";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [animate, setAnimate] = useState(false); // animation trigger
+  const [animate, setAnimate] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    setAnimate(true); // triggers fade-up animation only once
+    setAnimate(true); 
   }, []);
 
   const handleLogin = async (e) => {

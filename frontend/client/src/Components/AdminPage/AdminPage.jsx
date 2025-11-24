@@ -18,7 +18,7 @@ function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch admin stats from backend
+
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -38,11 +38,10 @@ function AdminPage() {
 
     fetchStats();
 
-    const interval = setInterval(fetchStats, 30000); // auto-refresh
+    const interval = setInterval(fetchStats, 30000); 
     return () => clearInterval(interval);
   }, []);
 
-  // Format timestamp
   const formatTime = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = new Date(timestamp);
@@ -56,7 +55,7 @@ function AdminPage() {
 
   return (
     <>
-      {/* ===== NAVBAR ===== */}
+    
       <nav>
         <ul>
           <li className="logo">
@@ -90,7 +89,7 @@ function AdminPage() {
         </ul>
       </nav>
 
-      {/* ===== INFO SECTION ===== */}
+  
       <div className="info-section">
         {loading ? (
           <div className="empty-state">
@@ -118,7 +117,7 @@ function AdminPage() {
           </div>
         ) : (
           <>
-            {/* Upper Info */}
+         
             <div className="upper-info">
               <div className="NumberOfUsers">
                 <h3>👥 Users Registered Today</h3>
@@ -173,7 +172,6 @@ function AdminPage() {
               </div>
             </div>
 
-            {/* Risk Level Breakdown */}
             <div className="lower-info">
               <h3>📊 Risk Level Distribution</h3>
               <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
@@ -382,7 +380,7 @@ function AdminPage() {
         )}
       </div>
 
-      {/* ===== BACKGROUND BUBBLES ===== */}
+  
       <div className="bubbles">
         {[...Array(5)].map((_, i) => (
           <div key={i} className="bubble"></div>

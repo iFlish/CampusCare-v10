@@ -359,7 +359,7 @@ function MentalHealth() {
                 </div>
 
                 <a
-                  href="https://www.utp.edu.my/Pages/PCS.aspx"
+                  href="https://www.utp.edu.my/Pages/Students/Student%20Development%20and%20Services/Psychological-and-Counselling-Services.aspx"
                   target="_blank"
                   rel="noreferrer"
                   className="visit-btn"

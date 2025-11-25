@@ -18,14 +18,16 @@ function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
   useEffect(() => {
     const fetchStats = async () => {
       try {
         console.log("📊 Fetching admin stats...");
         const res = await axios.get("http://localhost:5000/api/admin/stats");
         console.log("✅ Stats received:", res.data);
-        console.log("🚨 High-risk users count:", res.data.highRiskUsers?.length);
+        console.log(
+          "🚨 High-risk users count:",
+          res.data.highRiskUsers?.length
+        );
         setStats(res.data);
         setError(null);
       } catch (error) {
@@ -38,7 +40,7 @@ function AdminPage() {
 
     fetchStats();
 
-    const interval = setInterval(fetchStats, 30000); 
+    const interval = setInterval(fetchStats, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -55,31 +57,21 @@ function AdminPage() {
 
   return (
     <>
-    
       <nav>
         <ul>
           <li className="logo">
             <img src={logo} alt="CampusCare Logo" />
           </li>
 
+
           <li>
-            <Link to="/main">
-              <i className="fa fa-user-md" style={{ marginRight: "10px" }}></i>
+            <Link to="/admin">
+              <i className="fa fa-table" style={{ marginRight: "10px" }}></i>
               ChatBot
             </Link>
           </li>
 
-          <li>
-            <Link to="/PCS">
-              <i className="fa fa-university"></i> UTP PCS
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/mentalhealth">
-              <i className="fa fa-heartbeat"></i> Mental Health Info
-            </Link>
-          </li>
+ 
 
           <li className="logout">
             <Link to="/">
@@ -89,7 +81,6 @@ function AdminPage() {
         </ul>
       </nav>
 
-  
       <div className="info-section">
         {loading ? (
           <div className="empty-state">
@@ -117,7 +108,6 @@ function AdminPage() {
           </div>
         ) : (
           <>
-         
             <div className="upper-info">
               <div className="NumberOfUsers">
                 <h3>👥 Users Registered Today</h3>
@@ -178,7 +168,10 @@ function AdminPage() {
                 {["low", "moderate", "high"].map((level) => {
                   const colors = {
                     low: { bg: "rgba(76, 175, 80, 0.2)", border: "#4CAF50" },
-                    moderate: { bg: "rgba(255, 193, 7, 0.2)", border: "#FFC107" },
+                    moderate: {
+                      bg: "rgba(255, 193, 7, 0.2)",
+                      border: "#FFC107",
+                    },
                     high: { bg: "rgba(244, 67, 54, 0.2)", border: "#F44336" },
                   };
                   return (
@@ -252,17 +245,29 @@ function AdminPage() {
                   }}
                 >
                   <p
-                    style={{ fontSize: "24px", margin: "0 0 10px 0", color: "white" }}
+                    style={{
+                      fontSize: "24px",
+                      margin: "0 0 10px 0",
+                      color: "white",
+                    }}
                   >
                     ✅
                   </p>
                   <p
-                    style={{ fontSize: "18px", color: "rgba(255,255,255,0.9)", margin: 0 }}
+                    style={{
+                      fontSize: "18px",
+                      color: "rgba(255,255,255,0.9)",
+                      margin: 0,
+                    }}
                   >
                     No high-risk users detected today
                   </p>
                   <p
-                    style={{ fontSize: "14px", color: "rgba(255,255,255,0.6)", margin: "5px 0 0 0" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "rgba(255,255,255,0.6)",
+                      margin: "5px 0 0 0",
+                    }}
                   >
                     All users are within safe parameters
                   </p>
@@ -288,16 +293,25 @@ function AdminPage() {
                         transition: "all 0.3s ease",
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "rgba(244, 67, 54, 0.25)";
+                        e.currentTarget.style.background =
+                          "rgba(244, 67, 54, 0.25)";
                         e.currentTarget.style.transform = "translateX(5px)";
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "rgba(244, 67, 54, 0.15)";
+                        e.currentTarget.style.background =
+                          "rgba(244, 67, 54, 0.15)";
                         e.currentTarget.style.transform = "translateX(0)";
                       }}
                     >
                       {/* User Header */}
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "10px" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "start",
+                          marginBottom: "10px",
+                        }}
+                      >
                         <div style={{ flex: 1 }}>
                           <p
                             style={{
@@ -329,13 +343,26 @@ function AdminPage() {
                             {user.email || user.username || "Unknown User"}
                           </p>
                           {user.username && (
-                            <p style={{ margin: "5px 0 0 32px", fontSize: "14px", color: "rgba(255,255,255,0.7)" }}>
+                            <p
+                              style={{
+                                margin: "5px 0 0 32px",
+                                fontSize: "14px",
+                                color: "rgba(255,255,255,0.7)",
+                              }}
+                            >
                               Username: {user.username}
                             </p>
                           )}
                         </div>
                         {user.timestamp && (
-                          <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)", whiteSpace: "nowrap", marginLeft: "10px" }}>
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              color: "rgba(255,255,255,0.6)",
+                              whiteSpace: "nowrap",
+                              marginLeft: "10px",
+                            }}
+                          >
                             🕐 {formatTime(user.timestamp)}
                           </span>
                         )}
@@ -343,11 +370,34 @@ function AdminPage() {
 
                       {/* Risk Message */}
                       {user.lastRiskMessage && (
-                        <div style={{ background: "rgba(0,0,0,0.2)", padding: "12px", borderRadius: "8px", marginTop: "10px" }}>
-                          <p style={{ margin: "0 0 5px 0", fontSize: "11px", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                        <div
+                          style={{
+                            background: "rgba(0,0,0,0.2)",
+                            padding: "12px",
+                            borderRadius: "8px",
+                            marginTop: "10px",
+                          }}
+                        >
+                          <p
+                            style={{
+                              margin: "0 0 5px 0",
+                              fontSize: "11px",
+                              color: "rgba(255,255,255,0.5)",
+                              textTransform: "uppercase",
+                              letterSpacing: "0.5px",
+                            }}
+                          >
                             ⚠️ Flagged Message
                           </p>
-                          <p style={{ margin: 0, fontSize: "14px", color: "rgba(255,255,255,0.9)", fontStyle: "italic", lineHeight: "1.5" }}>
+                          <p
+                            style={{
+                              margin: 0,
+                              fontSize: "14px",
+                              color: "rgba(255,255,255,0.9)",
+                              fontStyle: "italic",
+                              lineHeight: "1.5",
+                            }}
+                          >
                             "{user.lastRiskMessage}"
                           </p>
                         </div>
@@ -380,7 +430,6 @@ function AdminPage() {
         )}
       </div>
 
-  
       <div className="bubbles">
         {[...Array(5)].map((_, i) => (
           <div key={i} className="bubble"></div>

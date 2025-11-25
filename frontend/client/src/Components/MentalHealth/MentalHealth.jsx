@@ -347,13 +347,13 @@ function MentalHealth() {
                 
                 <div className="contact-list">
                   <div className="contact-item">
-                    <strong>UTP Psychological Counseling Services</strong>
-                    <span className="phone-number">05-368 7070</span>
+                    <strong>UTP Psychological Counseling Services - Puan Azlina Mohd Lazim</strong>
+                    <span className="phone-number">+605-3688610</span>
                     <p>Monday - Friday: 8:30 AM - 5:00 PM</p>
                   </div>
                   <div className="contact-item">
                     <strong>UTP Health Centre</strong>
-                    <span className="phone-number">05-368 7999</span>
+                    <span className="phone-number">+605-3687201</span>
                     <p>Available during campus hours</p>
                   </div>
                 </div>

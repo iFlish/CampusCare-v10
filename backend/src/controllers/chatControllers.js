@@ -17,14 +17,20 @@ export const chatWithBot = async (req, res) => {
       userEmail = user?.email;
     }
 
+    // ⚠️ STEP 1: Evaluate risk FIRST (before generating response)
+    const riskLevel = evaluateRisk(message);
+    console.log(`🔍 Risk level detected: ${riskLevel}`);
+
+    // 🔍 STEP 2: Get relevant context from dataset
     const context = await getRelevantContext(message);
-    const responseText = await queryGemini(message, context);
-    const riskLevel = evaluateRisk(message); 
+
+    // 🤖 STEP 3: Generate AI response with risk-aware prompt
+    const responseText = await queryGemini(message, context, riskLevel);
     
     const endTime = Date.now();
     const responseTime = endTime - startTime;
 
-
+    // 💾 STEP 4: Save conversation to database
     await ChatLog.create({
       userId,
       userEmail,
@@ -36,10 +42,11 @@ export const chatWithBot = async (req, res) => {
 
     console.log(`💾 Chat saved | User: ${userEmail || userId} | Risk: ${riskLevel} | Response time: ${responseTime}ms`);
 
+    // 📤 STEP 5: Send response to user
     res.json({
       message: responseText,
       riskLevel,
-      flagged: riskLevel === "high",
+      flagged: riskLevel === "high" || riskLevel === "High",
       responseTime
     });
   } catch (err) {

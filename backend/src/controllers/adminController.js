@@ -60,7 +60,7 @@ export const getAdminStats = async (req, res) => {
         }
       },
       {
-        $limit: 10
+        $limit: 100
       }
     ]);
 

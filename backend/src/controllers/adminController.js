@@ -3,7 +3,7 @@ import ChatLog from "../models/Chatlog.js";
 
 export const getAdminStats = async (req, res) => {
   try {
-    console.log("\n📊 Fetching admin statistics...");
+    console.log("\nFetching admin statistics...");
 
 
     const today = new Date();
@@ -11,17 +11,17 @@ export const getAdminStats = async (req, res) => {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    console.log(`📅 Date range: ${today.toISOString()} to ${tomorrow.toISOString()}`);
+    console.log(`Date range: ${today.toISOString()} to ${tomorrow.toISOString()}`);
 
   
     const userCount = await User.countDocuments({ 
       createdAt: { $gte: today, $lt: tomorrow } 
     });
-    console.log(`👥 Users registered today: ${userCount}`);
+    console.log(`Users registered today: ${userCount}`);
 
 
     const totalChats = await ChatLog.countDocuments();
-    console.log(`💬 Total chats in DB: ${totalChats}`);
+    console.log(` Total chats in DB: ${totalChats}`);
 
    
     const avgResponse = await ChatLog.aggregate([
@@ -64,7 +64,7 @@ export const getAdminStats = async (req, res) => {
       }
     ]);
 
-    console.log(`⚠️  High-risk chats found TODAY: ${highRiskChatsToday.length}`);
+    console.log(` High-risk chats found TODAY: ${highRiskChatsToday.length}`);
 
 
     const userIds = highRiskChatsToday.map(chat => chat._id).filter(id => 
@@ -114,7 +114,7 @@ export const getAdminStats = async (req, res) => {
       }));
     }
 
-    console.log(`🚨 High-risk users to display: ${highRiskUserList.length}`);
+    console.log(`High-risk users to display: ${highRiskUserList.length}`);
 
  
     const chatsToday = await ChatLog.countDocuments({
@@ -132,7 +132,7 @@ export const getAdminStats = async (req, res) => {
       }
     ]);
 
-    console.log("✅ Stats fetched successfully\n");
+    console.log("Stats fetched successfully\n");
 
     res.status(200).json({
       success: true,
@@ -150,7 +150,7 @@ export const getAdminStats = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("❌ Error fetching admin stats:", error);
+    console.error("Error fetching admin stats:", error);
     res.status(500).json({ 
       success: false,
       message: "Failed to fetch admin stats",

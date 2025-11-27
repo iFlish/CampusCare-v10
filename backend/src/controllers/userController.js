@@ -15,20 +15,18 @@ export const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    // Find user
+
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({ success: false, message: "User not found" });
     }
 
-    // If using plain text password:
+  
     if (user.password !== password) {
       return res.status(400).json({ success: false, message: "Incorrect password" });
     }
 
-    // If using bcrypt hash:
-    // const isMatch = await bcrypt.compare(password, user.password);
-    // if (!isMatch) return res.status(400).json({ success: false, message: "Incorrect password" });
+
 
     res.json({ success: true, user });
   } catch (err) {
